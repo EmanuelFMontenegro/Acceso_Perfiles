@@ -1,0 +1,16 @@
+<p-toolbar class="Toolbar">
+  <div class="Toolbar__logo-desktop" *ngIf="!isScreenSmall">
+    <img src="assets/img/LogoAgroBYTECH.svg" alt="Logo">
+  </div>
+
+  <div>
+    <button pButton icon="pi pi-bars" (click)="toogle()" *ngIf="isScreenSmall"
+      style="border: none; background-color: #fff;" class="p-button-outlined"></button>
+  </div>
+
+  <div *ngIf="isScreenSmall" class="logo-mobile">
+    <img src="assets/img/LogoAgroBYTECH_M.svg" alt="Logo" class="dashboard-logo">
+  </div>
+
+
+</p-toolbar>
