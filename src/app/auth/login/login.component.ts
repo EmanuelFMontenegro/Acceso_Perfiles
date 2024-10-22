@@ -16,11 +16,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastrModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, ToastrModule],
 })
 export default class LoginComponent implements OnInit {
   loading: boolean = false;
@@ -54,13 +50,12 @@ export default class LoginComponent implements OnInit {
         .then((user: User | null) => {
           this.loading = false;
           if (user) {
-
             this.welcomeMessage =
               user.profile === 'admin'
                 ? 'Bienvenido Administrador'
                 : 'Bienvenido Usuario';
             this.toastr.success('¡Acceso exitoso!', 'Bienvenido');
-            this.router.navigate(['/listar-publicaciones']); 
+            this.router.navigate(['/listar-publicaciones']);
           }
         })
         .catch((error) => {
@@ -74,6 +69,10 @@ export default class LoginComponent implements OnInit {
         'Formulario inválido'
       );
     }
+  }
+
+  navigateToRegister(): void {
+    this.router.navigate(['auth/register']);
   }
 
   get passwordIconPath(): string {
