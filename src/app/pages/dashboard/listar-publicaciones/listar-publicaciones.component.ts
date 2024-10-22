@@ -14,8 +14,8 @@ import { ToastrService } from 'ngx-toastr'; // Para manejar notificaciones
 })
 export class ListarPublicacionesComponent implements OnInit {
   posts: any[] = [];
-  page: number = 1; // Página actual
-  postsPerPage: number = 4; // Cantidad de publicaciones por página
+  page: number = 1;
+  postsPerPage: number = 4; 
 
   constructor(
     private postService: PostFirebaseService,

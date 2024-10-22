@@ -6,6 +6,7 @@ import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router'; // Importa Router
 import DashboardComponent from '../../pages/dashboard/dashboard.component';
 import { AuthService } from '../../auth/auth.service';
+import AuthRoutingModule from '../../auth/auth-routing.module';
 
 @Component({
   selector: 'app-layout',
@@ -16,6 +17,7 @@ import { AuthService } from '../../auth/auth.service';
     SidebarComponent,
     RouterOutlet,
     DashboardComponent,
+    AuthRoutingModule,
   ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],

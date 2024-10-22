@@ -21,7 +21,7 @@ export class AuthService implements OnInit {
     private toastr: ToastrService,
     private router: Router
   ) {
-    // Suscripción al estado de autenticación
+
     this.auth.onAuthStateChanged(async (firebaseUser) => {
       if (firebaseUser) {
         const user = await this.fetchUserData(firebaseUser.uid);
@@ -40,13 +40,13 @@ export class AuthService implements OnInit {
     this.isLoggedIn();
   }
 
-  //verifica usuario actual por el Token
+
   isLoggedIn(): boolean {
     const token = sessionStorage.getItem('token');
-    console.log('el token es ', token); // Cambia esto según cómo almacenes tu token
-    return !!token; // Retorna true si el token existe
+    console.log('el token es ', token);
+    return !!token;
   }
-  // Getter para acceder al usuario actual
+
   get currentUserValue(): User | null {
     if (!this.currentUser) {
       const storedUser = sessionStorage.getItem('currentUser');
@@ -57,13 +57,13 @@ export class AuthService implements OnInit {
     return this.currentUser;
   }
 
-  // Método para establecer el usuario actual
+
   setCurrentUser(user: User): void {
     this.currentUser = user;
     sessionStorage.setItem('currentUser', JSON.stringify(user));
   }
 
-  // Método para obtener los datos del usuario desde Firestore
+
   private async fetchUserData(userId: string): Promise<User | null> {
     const userDoc = doc(this.firestore, `users/${userId}`);
     const userSnapshot = await getDoc(userDoc);
@@ -72,21 +72,21 @@ export class AuthService implements OnInit {
       const data = userSnapshot.data() as {
         email: string;
         name: string;
-        profile: string; // Asegúrate de que esto esté alineado con el Firestore
+        profile: string;
       };
 
       return {
         id: userId,
         email: data.email || '',
         name: data.name || '',
-        profile: data.profile || '', // Usa profile en lugar de role
+        profile: data.profile || '',
       } as User;
     }
 
     return null;
   }
 
-  // Método de login que devuelve una promesa
+
   login(username: string, password: string): Promise<User | null> {
     return signInWithEmailAndPassword(this.auth, username, password)
       .then(async (userCredential) => {
@@ -112,7 +112,7 @@ export class AuthService implements OnInit {
     email: string,
     password: string,
     name: string,
-    profile: string = 'user' // Cambia 'role' a 'profile'
+    profile: string = 'user'
   ): Promise<User | null> {
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -122,19 +122,19 @@ export class AuthService implements OnInit {
       );
       const user = userCredential.user;
 
-      // Almacenar los datos del usuario en Firestore
+
       await setDoc(doc(this.firestore, `users/${user.uid}`), {
         email: user.email,
         name: name,
-        profile: profile, // Cambia 'role' a 'profile'
+        profile: profile,
       });
 
       const newUser: User = {
-        // Asegúrate de usar User aquí
+
         id: user.uid,
         email: user.email || '',
         name: name,
-        profile: profile, // Cambia 'role' a 'profile'
+        profile: profile,
       };
 
       this.setCurrentUser(newUser);
@@ -145,16 +145,16 @@ export class AuthService implements OnInit {
     }
   }
 
-  // Método de logout que limpia el estado y sessionStorage
+
   logout(): Promise<void> {
     return this.auth.signOut().then(() => {
       this.currentUser = null;
-      sessionStorage.removeItem('currentUser'); // Elimina el usuario del sessionStorage
-      this.router.navigate(['/auth/login']); // Redirige a la página de login
+      sessionStorage.removeItem('currentUser');
+      this.router.navigate(['/auth/login']);
     });
   }
 
-  // Método para manejar errores de Firebase de forma más simple
+  
   private getErrorMessage(error: any): string {
     console.error('Error de autenticación:', error);
     switch (error.code) {

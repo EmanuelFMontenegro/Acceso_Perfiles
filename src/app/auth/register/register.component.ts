@@ -23,16 +23,16 @@ export default class RegisterComponent {
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
   passwordIconPath: string =
-    'M12 3C6.48 3 2 7.13 2 12s4.48 9 10 9 10-4.13 10-9-4.48-9-10-9z'; // Icono por defecto
+    'M12 3C6.48 3 2 7.13 2 12s4.48 9 10 9 10-4.13 10-9-4.48-9-10-9z';
   confirmPasswordIconPath: string =
-    'M12 3C6.48 3 2 7.13 2 12s4.48 9 10 9 10-4.13 10-9-4.48-9-10-9z'; // Icono por defecto
+    'M12 3C6.48 3 2 7.13 2 12s4.48 9 10 9 10-4.13 10-9-4.48-9-10-9z';
 
   constructor(
     private router: Router,
     private firestore: Firestore,
     private auth: Auth,
     private apifirebaseService: ApiFirebaseService,
-    private toastr: ToastrService // Inyectar ToastrService
+    private toastr: ToastrService
   ) {}
 
   async register(): Promise<User | null> {
@@ -47,17 +47,17 @@ export default class RegisterComponent {
       await setDoc(doc(this.firestore, `users/${user.uid}`), {
         email: user.email,
         name: this.name,
-        profile: 'profile', // Puedes establecer un rol predeterminado
+        profile: 'profile',
       });
 
       const newUser = this.mapFirebaseUserToCustomUser(user, 'user');
-      // Redirigir al login después de registrar exitosamente
-      this.router.navigate(['/auth/login']); // Cambia esta ruta si es necesario
+
+      this.router.navigate(['/auth/login']);
       return newUser;
     } catch (error) {
       console.error('Error durante el registro:', error);
-      this.toastr.error(this.getErrorMessage(error), 'Error al registrar'); // Mostrar mensaje de error
-      return null; // Retornar null en caso de error
+      this.toastr.error(this.getErrorMessage(error), 'Error al registrar');
+      return null; 
     }
   }
 

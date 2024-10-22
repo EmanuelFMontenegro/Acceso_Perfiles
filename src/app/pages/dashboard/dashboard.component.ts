@@ -43,7 +43,7 @@ export default class DashboardComponent implements OnInit {
   selectedPost: Post | null = null;
   comments: Comment[] = [];
   loading: boolean = true;
-  isOpen = false; // Estado inicial del sidebar
+  isOpen = false;
   currentUser: User | null = null;
   menuVisible: boolean = false;
 
@@ -57,10 +57,10 @@ export default class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadPosts(); // Carga los posts al iniciar
+    this.loadPosts();
   }
 
-  // Método para cargar posts
+
   private loadPosts(): void {
     this.apiService.fetchPosts().subscribe((posts: Post[]) => {
       this.posts = posts;
@@ -98,7 +98,7 @@ export default class DashboardComponent implements OnInit {
 
   createUser(): void {
     if (this.isAdmin()) {
-      // Lógica para crear un usuario
+
     } else {
       console.warn(
         'Acceso denegado. Solo los administradores pueden crear usuarios.'
@@ -108,7 +108,7 @@ export default class DashboardComponent implements OnInit {
 
   editUser(): void {
     if (this.isAdmin()) {
-      // Lógica para editar un usuario
+
     } else {
       console.warn(
         'Acceso denegado. Solo los administradores pueden editar usuarios.'
@@ -118,7 +118,7 @@ export default class DashboardComponent implements OnInit {
 
   deleteUser(): void {
     if (this.isAdmin()) {
-      // Lógica para eliminar un usuario
+      
     } else {
       console.warn(
         'Acceso denegado. Solo los administradores pueden eliminar usuarios.'

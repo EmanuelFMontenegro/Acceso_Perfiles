@@ -8,24 +8,25 @@ import { EditarUsuariosComponent } from './pages/dashboard/editar-usuarios/edita
 import { ListarPublicacionesComponent } from './pages/dashboard/listar-publicaciones/listar-publicaciones.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full' }, // Redirigir a login
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '',
-    component: LayoutComponent, // Utiliza el LayoutComponent como contenedor
+    component: LayoutComponent,
     children: [
       {
-        path: 'dashboard', // Ruta hija
-        component: DashboardComponent, // Directamente referenciando el componente
+        path: 'dashboard',
+        component: DashboardComponent,
       },
-      { path: 'listar-publicaciones', component: ListarPublicacionesComponent }, // Asegúrate de definir este componente
-      { path: 'ver-usuarios', component: VerUsuariosComponent }, // Asegúrate de definir este componente
-      { path: 'crear-publicacion', component: CrearPublicacionComponent }, // Asegúrate de definir este componente
-      { path: 'editar-usuarios', component: EditarUsuariosComponent }, // Asegúrate de definir este componente
-      { path: 'eliminar-usuarios', component: EliminarUsuariosComponent }, // Asegúrate de definir este componente
+      { path: 'listar-publicaciones', component: ListarPublicacionesComponent },
+      { path: 'ver-usuarios', component: VerUsuariosComponent },
+      { path: 'crear-publicacion', component: CrearPublicacionComponent },
+      { path: 'editar-usuarios', component: EditarUsuariosComponent },
+      { path: 'eliminar-usuarios', component: EliminarUsuariosComponent },
+      { path: '**', redirectTo: '/auth/login' }, // Redirigir cualquier ruta no encontrada al login
     ],
   },
 ];

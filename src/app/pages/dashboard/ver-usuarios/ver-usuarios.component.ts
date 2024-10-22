@@ -7,7 +7,7 @@ import { SharedModule } from '../../../shared/shared.module';
 @Component({
   selector: 'app-ver-usuarios',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule, SharedModule], // Añade el pipe aquí
+  imports: [CommonModule, NgxPaginationModule, SharedModule], 
   templateUrl: './ver-usuarios.component.html',
   styleUrls: ['./ver-usuarios.component.css'],
 })
@@ -15,7 +15,7 @@ export class VerUsuariosComponent implements OnInit {
   photos: Photo[] = [];
   isLoading = true;
   currentPage = 1;
-  itemsPerPage = 4; // Mostrar 4 imágenes por página
+  itemsPerPage = 4;
 
   constructor(private apiService: ApiService) {}
 

@@ -13,13 +13,13 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  standalone: true, // Marca el componente como standalone
+  standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   imports: [
     CommonModule,
-    ReactiveFormsModule, // Importa ReactiveFormsModule para trabajar con formularios reactivos
-    ToastrModule, // Importa ToastrModule para las notificaciones
+    ReactiveFormsModule,
+    ToastrModule,
   ],
 })
 export default class LoginComponent implements OnInit {
@@ -36,7 +36,7 @@ export default class LoginComponent implements OnInit {
     private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
-      correo: ['', [Validators.required, Validators.email]], // Ajusta la validación del correo
+      correo: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       remember: [false],
     });
@@ -54,13 +54,13 @@ export default class LoginComponent implements OnInit {
         .then((user: User | null) => {
           this.loading = false;
           if (user) {
-            // Define el mensaje de bienvenida según el rol
+
             this.welcomeMessage =
               user.profile === 'admin'
                 ? 'Bienvenido Administrador'
                 : 'Bienvenido Usuario';
             this.toastr.success('¡Acceso exitoso!', 'Bienvenido');
-            this.router.navigate(['/listar-publicaciones']); // Redirige a la vista de publicaciones
+            this.router.navigate(['/listar-publicaciones']); 
           }
         })
         .catch((error) => {

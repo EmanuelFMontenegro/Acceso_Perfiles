@@ -13,40 +13,40 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    data: { expectedRole: 'admin, user' }, // Permitir a todos los usuarios acceder al dashboard
+    data: { expectedRole: 'admin, user' },
   },
   {
     path: 'listar-publicaciones',
     component: ListarPublicacionesComponent,
-    data: { expectedRole: 'user' }, // Solo admin puede crear usuarios // RUTA DISPONIBLE PARA TODOS LOS USUARIOS
+    data: { expectedRole: 'user' },
   },
   {
     path: 'ver-usuarios',
     component: VerUsuariosComponent,
-    data: { expectedRole: 'user' }, // Solo admin puede crear usuarios
+    data: { expectedRole: 'user' },
   },
   {
     path: 'crear-publicacion',
     component: CrearPublicacionComponent,
     canActivate: [AuthGuard],
-    data: { expectedRole: 'admin' }, // Solo admin puede crear usuarios
+    data: { expectedRole: 'admin' },
   },
   {
     path: 'editar-usuarios',
     component: EditarUsuariosComponent,
     canActivate: [AuthGuard],
-    data: { expectedRole: 'admin' }, // Solo admin puede editar usuarios
+    data: { expectedRole: 'admin' },
   },
   {
     path: 'eliminar-usuarios',
     component: EliminarUsuariosComponent,
     canActivate: [AuthGuard],
-    data: { expectedRole: 'admin' }, // Solo admin puede eliminar usuarios
+    data: { expectedRole: 'admin' },
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)], // forChild porque es un módulo cargado perezosamente
+  imports: [RouterModule.forChild(routes)], 
   exports: [RouterModule],
 })
 export class DashboardRoutingModule {}
