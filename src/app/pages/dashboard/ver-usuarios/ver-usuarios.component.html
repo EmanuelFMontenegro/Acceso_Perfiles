@@ -1,1 +1,21 @@
-<p>ver-usuarios works!</p>
+<div class="container mx-auto mt-8">
+  <!-- Spinner de carga -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+  </div>
+
+  <!-- Galería de fotos con paginación -->
+  <div *ngIf="!isLoading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div *ngFor="let photo of photos | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"
+      class="bg-white p-4 rounded-lg shadow">
+      <img [src]="photo.thumbnailUrl" alt="{{ photo.title | translateTitle }}" class="w-full h-auto">
+      <h2 class="mt-2 text-sm font-semibold">{{ photo.title | translateTitle }}</h2>
+
+    </div>
+  </div>
+
+  <!-- Paginación centrada -->
+  <div class="flex justify-center mt-8">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+</div>

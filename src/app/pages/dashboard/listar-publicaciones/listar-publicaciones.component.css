@@ -1,0 +1,38 @@
+/* listar-publicaciones.component.css */
+h2 {
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h3 {
+  margin: 0;
+}
+
+p {
+  margin: 5px 0 0;
+}
+/* styles.css o el archivo CSS de tu componente */
+/* styles.css o el archivo CSS de tu componente */
+.card {
+  min-height: 250px; /* Ajusta la altura mínima según sea necesario */
+}
+
+.card-header {
+  max-height: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+}

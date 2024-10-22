@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth.service';
-import { User } from '../../user/user.model';
+import { User } from '../../models/user.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
+  standalone: true, // Marca el componente como standalone
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule, // Importa ReactiveFormsModule para trabajar con formularios reactivos
+    ToastrModule, // Importa ToastrModule para las notificaciones
+  ],
 })
 export default class LoginComponent implements OnInit {
   loading: boolean = false;
   loginForm: FormGroup;
   loginError: string | null = null;
   passwordVisible = false;
+  welcomeMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -23,7 +36,7 @@ export default class LoginComponent implements OnInit {
     private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
-      correo: ['', [Validators.required, Validators.required]],
+      correo: ['', [Validators.required, Validators.email]], // Ajusta la validación del correo
       password: ['', [Validators.required, Validators.minLength(8)]],
       remember: [false],
     });
@@ -41,8 +54,13 @@ export default class LoginComponent implements OnInit {
         .then((user: User | null) => {
           this.loading = false;
           if (user) {
+            // Define el mensaje de bienvenida según el rol
+            this.welcomeMessage =
+              user.profile === 'admin'
+                ? 'Bienvenido Administrador'
+                : 'Bienvenido Usuario';
             this.toastr.success('¡Acceso exitoso!', 'Bienvenido');
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/listar-publicaciones']); // Redirige a la vista de publicaciones
           }
         })
         .catch((error) => {
@@ -57,14 +75,17 @@ export default class LoginComponent implements OnInit {
       );
     }
   }
+
   get passwordIconPath(): string {
     return this.passwordVisible
       ? 'M3.98 8.354A8.978 8.978 0 0012 5.25c2.46 0 4.678.99 6.29 2.563M21 12c-1.5 2.5-4.5 6-9 6-2.603 0-4.946-.806-6.934-2.134M4.515 19.485l15-15'
       : 'M15 12a3 3 0 11-6 0 3 3 0 016 0zm-2 8.485V17H5v5.485M21 12c-1.5 2.5-4.5 6-9 6-2.603 0-4.946-.806-6.934-2.134M4.515 19.485l15-15';
   }
+
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
+
   private handleError(error: any): string {
     let errorMsg = 'Ocurrió un error. Inténtalo de nuevo.';
 

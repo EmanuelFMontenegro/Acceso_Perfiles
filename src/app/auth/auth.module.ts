@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'; // Para formularios reactivos
 import { FormsModule } from '@angular/forms'; // Importar FormsModule para ngModel
-import AuthRoutingModule from './auth-routing.module';
+import AuthRoutingModule from './auth-routing';
 import LoginComponent from './login/login.component';
 import RegisterComponent from './register/register.component';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -29,7 +29,9 @@ import { ToastrModule } from 'ngx-toastr'; // Importar ToastrModule
     RippleModule, // Para el efecto de ripple en botones
     ToastrModule.forRoot(),
     AngularFireAuthModule,
+    LoginComponent,
+    RegisterComponent,
   ],
-  declarations: [LoginComponent, RegisterComponent], // Declarar LoginComponent y RegisterComponent
+  declarations: [],
 })
 export class AuthModule {}

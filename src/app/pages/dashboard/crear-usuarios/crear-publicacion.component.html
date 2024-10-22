@@ -1,0 +1,22 @@
+<!-- Quitamos container y usamos w-full para que tome todo el ancho disponible -->
+<div class="w-full p-5">
+  <h2 class="text-3xl mb-4 font-bold text-center">Crear Publicación</h2>
+  <!-- Quitamos max-w-6xl y usamos w-full para máximo ancho -->
+  <form (ngSubmit)="crearPublicacion()" class="bg-white p-6 rounded-lg shadow-md w-full mx-auto">
+    <div class="mb-4">
+      <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
+      <input type="text" [(ngModel)]="nuevoPost.title" name="title" id="title" placeholder="Ingresa el título" required
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-200" />
+    </div>
+    <div class="mb-4">
+      <label for="body" class="block text-sm font-medium text-gray-700">Contenido</label>
+      <textarea [(ngModel)]="nuevoPost.body" name="body" id="body" placeholder="Escribe el contenido aquí" required
+        rows="10"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-200"></textarea>
+    </div>
+    <button type="submit"
+      class="w-full bg-blue-500 text-white font-bold py-3 px-4 rounded hover:bg-blue-600 transition duration-200">
+      Crear Publicación
+    </button>
+  </form>
+</div>

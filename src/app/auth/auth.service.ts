@@ -1,27 +1,32 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {
   Auth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from '@angular/fire/auth';
-import { User } from '../user/user.model';
+import { User } from '../models/user.model';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { getDoc } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnInit {
   private currentUser: User | null = null;
 
-  constructor(private auth: Auth, private firestore: Firestore, private toastr: ToastrService) {
+  constructor(
+    private auth: Auth,
+    private firestore: Firestore,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
     // Suscripción al estado de autenticación
     this.auth.onAuthStateChanged(async (firebaseUser) => {
       if (firebaseUser) {
         const user = await this.fetchUserData(firebaseUser.uid);
         if (user) {
           this.setCurrentUser(user);
-          console.log('Usuario autenticado:', this.currentUser);
         } else {
           console.error('No se encontró el usuario en Firestore');
         }
@@ -31,7 +36,16 @@ export class AuthService {
       }
     });
   }
+  ngOnInit(): void {
+    this.isLoggedIn();
+  }
 
+  //verifica usuario actual por el Token
+  isLoggedIn(): boolean {
+    const token = sessionStorage.getItem('token');
+    console.log('el token es ', token); // Cambia esto según cómo almacenes tu token
+    return !!token; // Retorna true si el token existe
+  }
   // Getter para acceder al usuario actual
   get currentUserValue(): User | null {
     if (!this.currentUser) {
@@ -81,7 +95,10 @@ export class AuthService {
           this.setCurrentUser(user);
           return user;
         } else {
-          this.toastr.error('No se encuntra registrado el Usuario,Por favor registralo','Atencion');
+          this.toastr.error(
+            'No se encuntra registrado el Usuario,Por favor registralo',
+            'Atencion'
+          );
           return null;
         }
       })
@@ -112,7 +129,8 @@ export class AuthService {
         profile: profile, // Cambia 'role' a 'profile'
       });
 
-      const newUser: User = {  // Asegúrate de usar User aquí
+      const newUser: User = {
+        // Asegúrate de usar User aquí
         id: user.uid,
         email: user.email || '',
         name: name,
@@ -131,7 +149,8 @@ export class AuthService {
   logout(): Promise<void> {
     return this.auth.signOut().then(() => {
       this.currentUser = null;
-      sessionStorage.removeItem('currentUser');
+      sessionStorage.removeItem('currentUser'); // Elimina el usuario del sessionStorage
+      this.router.navigate(['/auth/login']); // Redirige a la página de login
     });
   }
 

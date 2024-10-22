@@ -6,39 +6,35 @@ import {
   Router,
 } from '@angular/router';
 import { AuthService } from './auth.service';
-import { PermissionService } from '../pages/dashboard/permission.service';
-import { User } from '../user/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private authService: AuthService,
-    private permissionService: PermissionService, // Inyecta el PermissionService
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const currentUser = this.authService.currentUserValue;
-    const expectedRoles = route.data['expectedRole']; // Cambio a notación de corchetes
+    const currentUser = this.authService.currentUserValue; // Usuario autenticado
+    const expectedRoles = route.data['expectedRole']; // Roles permitidos
 
-    if (currentUser) {
+    // Verifica si hay un token de autenticación
+    if (this.authService.isLoggedIn()) {
+      // Método para verificar si hay un token
       // Verifica si el perfil del usuario está en la lista de roles permitidos
-      if (expectedRoles.includes(currentUser.profile)) {
-        return true;
+      if (expectedRoles && expectedRoles.includes(currentUser?.profile)) {
+        return true; // Permitir acceso
       } else {
         // Si el perfil no está permitido, redirigir o mostrar un mensaje de error
-        this.router.navigate(['/not-authorized']);
+        this.router.navigate(['auth/login']);
         return false;
       }
     }
 
     // Si no hay un usuario autenticado, redirige al login
-    this.router.navigate(['/login']);
+    this.router.navigate(['auth/login']);
     return false;
   }
 }

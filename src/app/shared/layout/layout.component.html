@@ -1,0 +1,51 @@
+<div class="flex flex-col h-screen">
+  <div class="flex flex-row flex-1">
+    <app-sidebar></app-sidebar>
+    <div class="flex flex-col flex-1">
+      <div class="bg-gray-800 text-white shadow-md p-4">
+        <div class="flex justify-between items-center w-full">
+          <div class="flex items-center">
+            <!-- Logo -->
+            <svg class="w-[20px] h-[20px] fill-[#204fd9]" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z">
+              </path>
+            </svg>
+          </div>
+          <div class="relative">
+            <!-- Botón para mostrar el mini menú -->
+            <button (click)="toggleMenu()"
+              class="inline-flex items-center p-2 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+              <span class="sr-only">Abrir menú</span>
+              <svg class="w-[30px] h-[30px] fill-[#204fd9]" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z">
+                </path>
+              </svg>
+            </button>
+
+            <!-- Mini menú desplegable -->
+            <div *ngIf="menuVisible" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+              <div class="p-2">
+                <button (click)="closeMenu()" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  Cerrar
+                </button>
+                <button (click)="logout()" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  Salir
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center flex-1 mt-4">
+        <!-- Mostrar el contenido de los componentes del sidebar -->
+        <ng-container *ngIf="menuVisible">
+          <app-sidebar></app-sidebar> <!-- Aquí se cargan todos los componentes del sidebar -->
+        </ng-container>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

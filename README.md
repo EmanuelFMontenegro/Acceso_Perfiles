@@ -1,27 +1,56 @@
-# access-roles
+# Accesos-Advance
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+Este proyecto es una aplicación web desarrollada con Angular y PrimeNG que permite la gestión de publicaciones. Los usuarios pueden crear y listar publicaciones utilizando un sistema basado en Firebase para el almacenamiento de datos. El diseño está optimizado para ser responsivo y atractivo, utilizando Tailwind CSS para los estilos.
 
-## Development server
+## Tabla de Contenidos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Características](#características)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Instalación](#instalación)
+- [Ejecución](#ejecución)
+- [Pruebas](#pruebas)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Contribuciones](#contribuciones)
+- [Licencia](#licencia)
 
-## Code scaffolding
+## Características
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Creación de publicaciones con título y contenido.
+- Listado de publicaciones con paginación.
+- Integración con Firebase para almacenamiento de datos.
+- Diseño responsivo con Tailwind CSS.
+- Interfaz de usuario amigable con PrimeNG.
+- Implementación de usuarios con privilegios en el sistema, permitiendo roles de 'admin' y 'user'.
+- Registro de nuevos usuarios.
 
-## Build
+## Descripción del Proyecto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Se realizó una implementación básica, utilizando el servicio de Firebase para simular de manera efectiva la creación y listado de publicaciones. También se creó un sistema de gestión de usuarios, donde se establecieron diferentes privilegios. Los usuarios pueden registrarse en la plataforma y se les asignan roles como 'admin' y 'user'.
 
-## Running unit tests
+### Credenciales de Usuario
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Admin**: 
+  - **Usuario**: `admin@eldar.com`
+  - **Contraseña**: `EldarAdmin1520!!Ñ[]¨*`
 
-## Running end-to-end tests
+- **User**: 
+  - **Usuario**: `user@edlar.com`
+  - **Contraseña**: `Eldar1520!!Ñ[]¨*`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Tecnologías Utilizadas
 
-## Further help
+- [Angular](https://angular.io/)
+- [PrimeNG](https://www.primefaces.org/primeng/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Firebase](https://firebase.google.com/)
+- [Ngx Pagination](https://www.npmjs.com/package/ngx-pagination)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Instalación
+
+Para instalar el proyecto, sigue estos pasos:
+
+1. **Clona el repositorio**:
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd accesos-advace
+  

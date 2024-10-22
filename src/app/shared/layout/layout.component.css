@@ -1,0 +1,27 @@
+.p-toolbar {
+  display: flex; /* Mantén la barra de herramientas como un contenedor flex */
+  justify-content: space-between; /* Espacio entre el logo y el menú */
+  align-items: center; /* Alinea el contenido verticalmente */
+}
+
+.menu-container {
+  position: relative; /* Necesario para posicionar el menú desplegable */
+}
+
+.menu-dropdown {
+  position: absolute; /* Posiciona el menú en relación a su contenedor */
+  right: 0; /* Alinea a la derecha */
+  top: 100%; /* Coloca debajo del botón */
+  margin-top: 2px; /* Espacio entre el botón y el menú */
+  width: 200px; /* Ancho del menú */
+  background: white; /* Color de fondo */
+  border-radius: 0.375rem; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra del menú */
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Ajustes adicionales */
+.menu-dropdown button {
+  width: 100%; /* Asegura que los botones ocupen el ancho completo */
+  text-align: left; /* Alinea el texto a la izquierda */
+}

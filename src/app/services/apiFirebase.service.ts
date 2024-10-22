@@ -6,7 +6,7 @@ import {
   signOut,
 } from '@angular/fire/auth';
 import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
-import { User } from '../user/user.model'; // Asegúrate de que esta ruta sea correcta
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',

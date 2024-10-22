@@ -1,6 +1,6 @@
 export interface Post {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
+  id?: number; // Opcional, si es generado por el servidor
+  userId: number; // Obligatorio
+  title: string; // Obligatorio
+  body: string; // Obligatorio
 }

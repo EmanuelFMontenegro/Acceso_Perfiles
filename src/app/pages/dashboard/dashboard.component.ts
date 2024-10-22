@@ -1,17 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../../models/post.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../auth/auth.service';
-import { User } from '../../user/user.model';
 import { PermissionService } from './permission.service';
-import { Router } from '@angular/router';
+import { Post } from '../../models/post.model';
+import { User } from '../../models/user.model';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { VerUsuariosComponent } from './ver-usuarios/ver-usuarios.component';
+import { EliminarUsuariosComponent } from './eliminar-usuarios/eliminar-usuarios.component';
+import { EditarUsuariosComponent } from './editar-usuarios/editar-usuarios.component';
+import { ListarPublicacionesComponent } from './listar-publicaciones/listar-publicaciones.component';
+
+import { RouterOutlet } from '@angular/router';
+import SidebarComponent from '../../shared/sidebar/sidebar.component';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ProgressSpinnerModule,
+    ToolbarModule,
+    ButtonModule,
+    VerUsuariosComponent,
+    EliminarUsuariosComponent,
+    EditarUsuariosComponent,
+    ListarPublicacionesComponent,
+    RouterOutlet,
+    SidebarComponent,
+  ],
 })
-export class DashboardComponent implements OnInit {
+export default class DashboardComponent implements OnInit {
   posts: Post[] = [];
   selectedPost: Post | null = null;
   comments: Comment[] = [];
@@ -19,6 +46,7 @@ export class DashboardComponent implements OnInit {
   isOpen = false; // Estado inicial del sidebar
   currentUser: User | null = null;
   menuVisible: boolean = false;
+
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
@@ -35,47 +63,43 @@ export class DashboardComponent implements OnInit {
   // Método para cargar posts
   private loadPosts(): void {
     this.apiService.fetchPosts().subscribe((posts: Post[]) => {
-      // Especificar el tipo Post[]
       this.posts = posts;
       this.loading = false;
     });
   }
+
   toggleMenu(): void {
     this.menuVisible = !this.menuVisible;
   }
+
   logout() {
-    // Aquí puedes añadir la lógica para limpiar el token o información del usuario
     this.router.navigate(['auth/login']);
   }
+
   navigateTo(path: string): void {
-    this.router.navigate([path]); // Usa el router aquí
+    this.router.navigate([path]);
   }
 
-  // Método para alternar el estado del sidebar
   toggleSidebar(): void {
     this.isOpen = !this.isOpen;
   }
 
-  // Verifica si el usuario es admin
   isAdmin(): boolean {
     return this.permissionService.hasprofile('admin');
   }
 
-  // Verifica si el usuario puede editar
   canEdit(): boolean {
-    return this.isAdmin(); // Solo los admins pueden editar
+    return this.isAdmin();
   }
 
-  // Método para determinar si el usuario tiene acceso a funcionalidades específicas
   canViewPosts(): boolean {
-    return this.currentUser !== null; // Cualquier usuario autenticado puede ver los posts
+    return this.currentUser !== null;
   }
 
   createUser(): void {
     if (this.isAdmin()) {
-      // Implementa la lógica para crear un usuario
+      // Lógica para crear un usuario
     } else {
-      // Mensaje o lógica si el usuario no tiene permisos
       console.warn(
         'Acceso denegado. Solo los administradores pueden crear usuarios.'
       );
@@ -84,9 +108,8 @@ export class DashboardComponent implements OnInit {
 
   editUser(): void {
     if (this.isAdmin()) {
-      // Implementa la lógica para editar un usuario
+      // Lógica para editar un usuario
     } else {
-      // Mensaje o lógica si el usuario no tiene permisos
       console.warn(
         'Acceso denegado. Solo los administradores pueden editar usuarios.'
       );
@@ -95,9 +118,8 @@ export class DashboardComponent implements OnInit {
 
   deleteUser(): void {
     if (this.isAdmin()) {
-      // Implementa la lógica para eliminar un usuario
+      // Lógica para eliminar un usuario
     } else {
-      // Mensaje o lógica si el usuario no tiene permisos
       console.warn(
         'Acceso denegado. Solo los administradores pueden eliminar usuarios.'
       );
